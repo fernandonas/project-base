@@ -10,5 +10,5 @@ RUN npm run build
 # Estágio 2: Servir a aplicação com Nginx
 FROM nginx:alpine
 VOLUME /var/cache/nginx
-COPY --from=angular /app/dist/project-base /usr/share/nginx/html
+COPY --from=angular /app/dist/project-base/browser /usr/share/nginx/html
 COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
