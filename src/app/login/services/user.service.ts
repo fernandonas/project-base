@@ -25,4 +25,8 @@ export class UserService {
   addUser(user: IUserRequest): Observable<void> {
     return this.httpClient.post<void>(`${environment.baseUrl}/api/User`, user);
   }
+
+  getUsers(): Observable<IUserResponse[]> {
+    return this.httpClient.get<[]>(`${environment.baseUrl}/api/User`);
+  }
 }
