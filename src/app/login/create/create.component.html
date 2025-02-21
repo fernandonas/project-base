@@ -1,0 +1,57 @@
+<div class="cadastro-container">
+    <h2>Cadastro</h2>
+    <form (ngSubmit)="onSubmit()" #cadastroForm="ngForm">
+      <div class="form-group">
+        <label for="name">Nome:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="cadastroData.name"
+          required
+          #name="ngModel"
+        />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+          <div *ngIf="name.errors?.['required']">Nome é obrigatório.</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="cadastroData.email"
+          required
+          email
+          #email="ngModel"
+        />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+          <div *ngIf="email.errors?.['required']">Email é obrigatório.</div>
+          <div *ngIf="email.errors?.['email']">Email inválido.</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Senha:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="cadastroData.password"
+          required
+          minlength="6"
+          #password="ngModel"
+        />
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+          <div *ngIf="password.errors?.['required']">Senha é obrigatória.</div>
+          <div *ngIf="password.errors?.['minlength']">
+            Senha deve ter pelo menos 6 caracteres.
+          </div>
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="cadastroForm.invalid">Cadastrar</button>
+    </form>
+  </div>
