@@ -3,7 +3,7 @@ import { IUserRequest, IUserResponse } from '../dtos/user.dto';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
