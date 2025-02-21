@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UserService } from './login/services/user.service';
-import { IUserResponse } from './login/dtos/user.dto';
 import { CommonModule } from '@angular/common';
+import { UserService } from './modules/login/services/user.service';
+import { IUserResponse } from './modules/login/models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   users: IUserResponse[] = [];
-  title = 'project-base';
   constructor(
     private readonly userService: UserService
   ) { }

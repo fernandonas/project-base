@@ -19,17 +19,12 @@ export class LoginComponent {
 
   constructor(
     private readonly authService: AuthService
-  ) { }
-
-  
+  ) { }  
 
   async onSubmit() {
     if (this.loginData.email && this.loginData.password) {
       console.log('Dados do formulário:', this.loginData);
-      await this.authService.login({
-        email: this.loginData.email,
-        password: this.loginData.password
-      }).catch(() => {
+      await this.authService.login(this.loginData).catch(() => {
         alert('Usuário e ou senha inválido.');
       });
     } else {

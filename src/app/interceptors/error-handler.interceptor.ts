@@ -1,7 +1,7 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHandlerFn, HttpInterceptor, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
+import { inject } from "@angular/core";
 import { Observable, catchError, throwError, timeout } from "rxjs";
-import { AuthService } from "../login/services/auth.service";
+import { AuthService } from "../modules/login/services/auth.service";
 
 export const errorHandlerInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
     const authService = inject(AuthService);
@@ -10,8 +10,10 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req: HttpRequest<any>
       timeout(10000),
       catchError((httpResponse: HttpErrorResponse) => {
         if (httpResponse.status === 401) {
+          alert('Login expirado faça login novamente por favor!');
           authService.logout();
         }
+        alert(httpResponse.error.detailedMessage);
         return throwError(() => httpResponse);
       })
     );

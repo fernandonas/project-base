@@ -8,5 +8,5 @@ export interface IUserRequest {
 export interface IUserResponse {
     email: string;
     token: string;
-    userName: string
+    name: string;
 }
