@@ -11,4 +11,4 @@ if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
 fi
 
 # Rodar o docker-compose
-docker-compose up --build -d
+docker compose up --build -d
