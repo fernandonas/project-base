@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  project-base:
+    build: .
+    container_name: project-base
+    restart: always
+    ports:
+      - "80:80"
+      - "4200:4200"
+    volumes:
+      - /var/cache/nginx
