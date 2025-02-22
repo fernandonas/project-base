@@ -6,7 +6,7 @@ services:
     container_name: project-base
     restart: always
     ports:
-      - "80:80"
+      - "80:4200"
       - "4200:4200"
     volumes:
       - /var/cache/nginx
