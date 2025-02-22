@@ -2,7 +2,7 @@
 CONTAINER_NAME="project-base"
 
 echo "Atualizando o repositório..."
-git pull
+sudo git pull
 
 if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
     echo "Parando o contêiner existente..."
