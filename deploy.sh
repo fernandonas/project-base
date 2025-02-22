@@ -2,7 +2,6 @@
 CONTAINER_NAME="project-base"
 
 echo "Atualizando o repositório..."
-sudo chmod +x deploy.sh
 sudo git checkout .
 sudo git pull
 
