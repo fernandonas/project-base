@@ -2,7 +2,7 @@
 CONTAINER_NAME="project-base"
 
 echo "Atualizando o repositório..."
-sudo git checkout .w
+sudo git checkout .
 sudo git pull
 
 if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
