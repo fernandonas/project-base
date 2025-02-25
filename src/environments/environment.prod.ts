@@ -1,3 +1,3 @@
 export const environment = {
-    baseUrl: 'http://nasci.dev.br:5001'
+    baseUrl: 'https://proxy-delta-rosy.vercel.app/proxy?url=http://nasci.dev.br:5001'
 };
