@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { firstValueFrom } from 'rxjs';
+import { IUserRequest } from './models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -13,19 +14,19 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './login.component.less'
 })
 export class LoginComponent {
-  loginData = {
+  userRequest: IUserRequest = {
     email: '',
     password: ''
   };
 
   constructor(
     private readonly authService: AuthService
-  ) { }  
+  ) { }
 
   async onSubmit() {
-    if (this.loginData.email && this.loginData.password) {      
+    if (this.userRequest.email && this.userRequest.password) {
       try {
-        await firstValueFrom(this.authService.login(this.loginData));
+        await firstValueFrom(this.authService.login(this.userRequest));
       } catch {
         alert('Usuário e/ou senha inválido.');
       }
@@ -33,5 +34,4 @@ export class LoginComponent {
       alert('Preencha todos os campos corretamente.');
     }
   }
-
 }

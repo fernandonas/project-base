@@ -27,6 +27,6 @@ export class UserService {
   }
 
   getUsers(): Observable<IUserResponse[]> {
-    return this.httpClient.get<[]>(`${environment.baseUrl}/api/User`);
+    return this.httpClient.get<IUserResponse[]>(`${environment.baseUrl}/api/User`);
   }
 }

@@ -3,12 +3,9 @@ import { inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { AuthService } from "../modules/login/services/auth.service";
 
-export const authInterceptor: HttpInterceptorFn = (
-  req: HttpRequest<any>,
-  next: HttpHandlerFn
-): Observable<HttpEvent<any>> => {
+export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
   const authService = inject(AuthService);
-  const token = authService.getToken(); // Pegando o token corretamente
+  const token = authService.getToken();
 
   if (!token) {
     return next(req);
@@ -22,5 +19,3 @@ export const authInterceptor: HttpInterceptorFn = (
 
   return next(clonedRequest);
 };
-
-  

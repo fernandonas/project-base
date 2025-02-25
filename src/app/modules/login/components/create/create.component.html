@@ -7,7 +7,7 @@
           type="text"
           id="name"
           name="name"
-          [(ngModel)]="cadastroData.name"
+          [(ngModel)]="userRequest.name"
           required
           #name="ngModel"
         />
@@ -22,7 +22,7 @@
           type="email"
           id="email"
           name="email"
-          [(ngModel)]="cadastroData.email"
+          [(ngModel)]="userRequest.email"
           required
           email
           #email="ngModel"
@@ -39,7 +39,7 @@
           type="password"
           id="password"
           name="password"
-          [(ngModel)]="cadastroData.password"
+          [(ngModel)]="userRequest.password"
           required
           minlength="6"
           #password="ngModel"

@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { IUserRequest } from '../../models/user.model';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-create',
@@ -13,18 +14,20 @@ import { UserService } from '../../services/user.service';
   styleUrl: './create.component.less'
 })
 export class CreateComponent {
-  cadastroData = {
+  userRequest: IUserRequest = {
     name: '',
     email: '',
     password: ''
   };
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   onSubmit() {
-    this.userService.addUser(this.cadastroData).subscribe(() => {
-      this.router.navigate(['/login']);
-    })
+    this.userService.addUser(this.userRequest)
+      .pipe(take(1))
+      .subscribe(() => this.router.navigate(['/login']))
   }
-
 }
