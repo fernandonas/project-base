@@ -9,6 +9,4 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
-export class HomeComponent {
-
-}
+export class HomeComponent { }

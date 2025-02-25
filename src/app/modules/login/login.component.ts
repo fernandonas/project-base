@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -22,11 +23,12 @@ export class LoginComponent {
   ) { }  
 
   async onSubmit() {
-    if (this.loginData.email && this.loginData.password) {
-      console.log('Dados do formulário:', this.loginData);
-      await this.authService.login(this.loginData).catch(() => {
-        alert('Usuário e ou senha inválido.');
-      });
+    if (this.loginData.email && this.loginData.password) {      
+      try {
+        await firstValueFrom(this.authService.login(this.loginData));
+      } catch {
+        alert('Usuário e/ou senha inválido.');
+      }
     } else {
       alert('Preencha todos os campos corretamente.');
     }

@@ -4,66 +4,73 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { environment } from '../../../../environments/environment';
+import { jwtDecode } from 'jwt-decode';
+import { catchError, map, Observable, of, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: IUserResponse | undefined;
+  private userResponse?: IUserResponse;
+
   constructor(
     private readonly httpClient: HttpClient,
     private readonly router: Router,
     private readonly userService: UserService,
-  ) { this.getUserFromLocalStorage() }
+  ) {
+    this.loadUserFromLocalStorage();
+  }
 
-  getUserFromLocalStorage(): void {
-    const user = localStorage.getItem("User")
-    if (user) {
-      this.user = JSON.parse(user);
-      this.userService.setUser(this.user!)
+  private loadUserFromLocalStorage(): void {
+    const storedUser = localStorage.getItem("User");
+    if (storedUser) {
+      this.userResponse = JSON.parse(storedUser) as IUserResponse;
+      this.userService.setUser(this.userResponse);
     }
   }
 
-  getUsers(): void {
-    this.httpClient.get(`${environment.baseUrl}/api/User`).subscribe({
-      next: (user) => {
-        console.log(user)
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
-  }
-
-  login(user: IUserRequest): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.httpClient.post(`${environment.baseUrl}/api/User/login`, {
-        password: user.password,
-        email: user.email
-      }).subscribe({
-        next: (user: any) => {
-          this.user = user
+  login(userRequest: IUserRequest): Observable<IUserResponse | null> {
+    return this.httpClient.post<IUserResponse>(`${environment.baseUrl}/api/User/login`, userRequest)
+      .pipe(
+        take(1),
+        map(userResponse => {
+          this.userResponse = userResponse;
+          localStorage.setItem("User", JSON.stringify(userResponse));
+          this.userService.setUser(userResponse);
           this.router.navigate(['/']);
-          localStorage.setItem("User", JSON.stringify(this.user));
-          this.userService.setUser(this.user)
-          resolve()
-        },
-        error: () => {
-          this.user = undefined;
-          localStorage.removeItem("User");
-          this.userService.setUser(undefined)
-          reject();
-        }
-      })
-    })
+          return userResponse;
+        }),
+        catchError(() => {
+          this.logout();
+          return of(null);
+        })
+      );
   }
 
   logout(): void {
+    this.userResponse = undefined;
     localStorage.removeItem("User");
+    this.userService.setUser(undefined);
     this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {
-    return this.user?.token != undefined;
+    return Boolean(this.getToken()) && !this.isTokenExpired();
+  }
+
+  getToken(): string | undefined {
+    return this.userResponse?.token;
+  }
+
+  private isTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) return true;
+
+    try {
+      const { exp } = jwtDecode<{ exp: number }>(token);
+      return exp < Math.floor(Date.now() / 1000);
+    } catch {
+      return true;
+    }
   }
 }

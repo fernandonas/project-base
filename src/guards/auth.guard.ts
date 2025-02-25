@@ -7,8 +7,9 @@ export class AuthGuard {
   constructor(
     private readonly authService: AuthService
   ) { }
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.authService.user?.token) {
+    if (this.authService.isAuthenticated()) {
       return true;
     }
     this.authService.logout();
