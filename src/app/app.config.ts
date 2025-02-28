@@ -19,6 +19,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(
       withInterceptors([errorHandlerInterceptor, authInterceptor])
-    ), provideNzI18n(pt_BR), importProvidersFrom(FormsModule), provideAnimationsAsync(), provideHttpClient()
+    ),
+    provideNzI18n(pt_BR),
+    importProvidersFrom(FormsModule),
+    provideAnimationsAsync(),
   ]
 };
