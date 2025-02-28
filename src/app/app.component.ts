@@ -1,25 +1,24 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { UserService } from './modules/login/services/user.service';
-import { IUserResponse } from './modules/login/models/user.model';
+import { AuthService } from './modules/login/services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.less'
 })
 export class AppComponent {
-  users: IUserResponse[] = [];
-  constructor(
-    private readonly userService: UserService
-  ) { }
+  
+  constructor(private readonly authService: AuthService) { }
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe((users) => {
-      this.users = users;
-    })
+  get isAuthenticated(): boolean{
+    return this.authService.isAuthenticated();
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }
