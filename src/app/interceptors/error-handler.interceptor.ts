@@ -13,7 +13,6 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req: HttpRequest<any>
           alert('Login expirado faça login novamente por favor!');
           authService.logout();
         }
-        alert(httpResponse.error.detailedMessage);
         return throwError(() => httpResponse);
       })
     );

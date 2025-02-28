@@ -19,7 +19,7 @@
     routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: true }">
       LOGIN
-  </button>
+  </button>  
   <button
     *ngIf="isAuthenticated"
     (click)="logout()"
@@ -29,6 +29,6 @@
   </button>
 </div>
 <router-outlet />
-<div class="teste">
-  http://www.naci.dev.br
+<div class="footer">
+  https://www.naci.dev.br/
 </div>

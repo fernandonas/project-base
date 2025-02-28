@@ -37,6 +37,6 @@
       </div>
     </div>
 
-    <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    <button nz-button [nzLoading]="loading" type="submit" [disabled]="loginForm.invalid">Entrar</button>
   </form>
 </div>
