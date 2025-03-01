@@ -33,9 +33,7 @@ export class LoginComponent {
     if (this.userRequest.email && this.userRequest.password) {
       this.loading = true;
       const response = await firstValueFrom(this.authService.login(this.userRequest));
-      if (!response) {
-        this.nzNotificationService.error('Usuário e/ou senha inválido.', '');
-      } else {
+      if (response) {
         this.nzNotificationService.success('Bem vindo!', response.name);
       }
       this.loading = false;
