@@ -14,6 +14,9 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req: HttpRequest<any>
         if (httpResponse.status === 401) {
           authService.logout();
         }
+        if(httpResponse.status === 404){
+          return throwError(() => httpResponse);
+        }
         nzNotificationService.warning(httpResponse.error, '')
         return throwError(() => httpResponse);
       })

@@ -7,6 +7,13 @@
       HOME
   </button>
   <button
+    *ngIf="isAuthenticated"
+    [routerLink]="['training']"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">
+      TRAINING
+  </button>
+  <button
   *ngIf="!isAuthenticated"
     [routerLink]="['/login', 'register']"
     routerLinkActive="active"
@@ -28,7 +35,9 @@
       LOGOUT
   </button>
 </div>
-<router-outlet />
+<div class="content">
+  <router-outlet />  
+</div>
 <div class="footer">
   https://www.naci.dev.br/
 </div>

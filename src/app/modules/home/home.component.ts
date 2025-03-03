@@ -5,8 +5,12 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [
+    FormsModule,
+    CommonModule
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
 export class HomeComponent { }
+

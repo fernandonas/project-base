@@ -1,0 +1,24 @@
+<div class="exercices-container">
+    <button nz-button class="primary" (click)="filter()">Todos</button>
+    <button nz-button class="primary" (click)="filter('A')">Treino A</button>
+    <button nz-button class="primary" (click)="filter('B')">Treino B</button>
+    <button nz-button class="primary" (click)="filter('C')">Treino C</button>
+    <button nz-button class="primary" (click)="filter('D')">Treino D</button>
+    
+    <nz-table #basicTable [nzData]="filteredExercices" [nzFrontPagination]="false">
+        <thead>
+            <tr>
+                <th>Exercício</th>
+                <th>Máquina</th>
+                <th>Treino</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of filteredExercices">
+                <td>{{data.name}}</td>
+                <td nzAlign="center">{{data.machine}}</td>
+                <td nzAlign="center">{{data.category}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
